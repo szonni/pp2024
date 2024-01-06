@@ -25,12 +25,21 @@ def Course_Information():
 
 def Input_Mark():
     student_id = input("Enter student id: ")
+    for student in students:
+        if student_id != student['ID']:
+            return print("Invalid student ID.")
     course_id =  input("Enter course id: ")
+    for course in courses:
+        if course_id != course['ID']:
+            return print("Invalid course ID.")
     mark = float(input(f"\nEnter the mark for student id {student_id} in {course_id}: "))
     marks[(student_id, course_id)] = mark
 
 def List_Marks():
-    course_id =  input("Enter course ID: ")
+    course_id =  input("Enter course id: ")
+    for course in courses:
+        if course_id != course['ID']:
+            return print("Invalid course ID.")
     for list in students:
         student_id = list['ID']
         student_name = list['Name']
