@@ -56,6 +56,7 @@ def main():
     students = []
     courses = []
     marks = {}
+    
     for _ in range(Number_Of_Students()):
         students.append(Student_Infomation())            # Add student into students[]
 
