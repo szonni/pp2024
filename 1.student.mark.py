@@ -1,8 +1,3 @@
-# Create lists and a dict for later usage
-students = []
-courses = []
-marks = {}
-
 def Number_Of_Students():
     return int(input("Number of students in class: "))
 
@@ -57,6 +52,10 @@ def List_Student():
 
 # Main Function
 def main():
+    # Create lists and a dict for later usage
+    students = []
+    courses = []
+    marks = {}
     for _ in range(Number_Of_Students()):
         students.append(Student_Infomation())            # Add student into students[]
 
