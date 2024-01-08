@@ -55,23 +55,26 @@ def List_Student():
     for list in students:
         print(f"ID: {list['ID']}; Name: {list['Name']}; DoB: {list['DoB']}")
 
+# Main Function
+def main():
+    for _ in range(Number_Of_Students()):
+        students.append(Student_Infomation())            # Add student into students[]
 
+    for _ in range(Number_Of_Courses()):
+        courses.append(Course_Information())              # Add course into courses[]
+
+    print('\n')
+    Input_Mark()
+    print('\n')
+    List_Student()
+    print('\n')
+    List_Course()
+    print('\n')
+    List_Marks()
 
 #                   MAIN PROGRAM BEGINS                   #
-for _ in range(Number_Of_Students()):
-    students.append(Student_Infomation())            # Add student into students[]
-
-for _ in range(Number_Of_Courses()):
-    courses.append(Course_Information())              # Add course into courses[]
-
-print('\n')
-Input_Mark()
-print('\n')
-List_Student()
-print('\n')
-List_Course()
-print('\n')
-List_Marks()
-
+if __name__ == '__main__':
+    main()
 #                   MAIN PROGRAM ENDS                    #
+
 
