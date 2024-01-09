@@ -51,12 +51,7 @@ def List_Student():
         print(f"ID: {list['ID']}; Name: {list['Name']}; DoB: {list['DoB']}")
 
 # Main Function
-def main():
-    # Create lists and a dict for later usage
-    students = []
-    courses = []
-    marks = {}
-    
+def main():    
     for _ in range(Number_Of_Students()):
         students.append(Student_Infomation())            # Add student into students[]
 
@@ -74,6 +69,9 @@ def main():
 
 #                   MAIN PROGRAM BEGINS                   #
 if __name__ == '__main__':
+    students = []
+    courses = []
+    marks = {}
     main()
 #                   MAIN PROGRAM ENDS                    #
 
