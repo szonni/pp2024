@@ -1,5 +1,6 @@
 from Classes.Student import Student
 from Classes.Course import Course
+import numpy
 
 
 def inputs(students):
@@ -27,6 +28,10 @@ def mark(students, courses):
     for student in students:
         student.enter_mark(course_id)
 
+def GPA(students):
+    for student in students:
+        gpa = student.cal_GPA()
+        print(f"GPA: {gpa}")
      
 # Main Function
 def main():
@@ -35,7 +40,9 @@ def main():
     inputs(students)
     input_course(courses)
     mark(students, courses)
+    mark(students, courses)
 
+    GPA(students)
     # List students' infomation
     print(students)
     # List courses' information
