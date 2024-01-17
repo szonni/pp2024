@@ -1,3 +1,5 @@
+import math
+
 class Student:
     def __init__(self, id, name, dob):
         self.__id = id
@@ -7,6 +9,9 @@ class Student:
 
     def enter_mark(self, course_id):
         mark = float(input(f"Enter the mark for student {self.__id}: "))
+        mark *= 10
+        math.floor(mark)
+        mark /= 10
         self.__mark[course_id] = mark
 
     def __repr__(self):
