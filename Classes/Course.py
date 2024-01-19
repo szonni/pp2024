@@ -7,7 +7,5 @@ class Course:
         return self.__id
     
     def __repr__(self):
-        print(f"Course's id: {self.__id}, course's name: {self.__name}")
-        print('\n')
-        return 
+        return f"Course's id: {self.__id}, course's name: {self.__name}"'\n' 
     

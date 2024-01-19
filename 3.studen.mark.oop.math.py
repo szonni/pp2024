@@ -1,9 +1,9 @@
 from Classes.Student import Student
 from Classes.Course import Course
-import numpy
 
 
-def inputs(students):
+
+def input_student(students):
     num = int(input("Number of students is: "))
     for _ in range (num):
         id = input("ID: ")
@@ -17,29 +17,36 @@ def input_course(courses):
     for _ in range (num):
         id = input("ID: ")
         name = input("Name: ")
-        print("\n")
         courses.append(Course(id, name))   
 
 def mark(students, courses):
-    course_id = input("Enter course ID: ")
-    if not any(course_id in course.get_id() for course in courses):
-        print("Invalid course ID.")
-        return
-    for student in students:
-        student.enter_mark(course_id)
+    print("\n///Mark input///")
+    course_id = str(input("Enter course ID: "))
+    while True:    
+        if not any(course_id == course.get_id() for course in courses):
+            print("Invalid course ID.")
+            course_id = str(input("Please enter the correct course's ID: "))
+            continue
+        for student in students:
+            student.enter_mark(course_id)
+        print('\n')
+        break
 
 def GPA(students):
     for student in students:
         gpa = student.cal_GPA()
-        print(f"GPA: {gpa}")
-     
+        print(f"GPA for student ID {student.get_id()}: {gpa}")
+    print('\n')
+
+def sort_GPA(students):
+    return sorted(students, key=lambda student: student._Student__gpa, reverse = True)
+        
 # Main Function
 def main():
     courses = []
     students = []
-    inputs(students)
+    input_student(students)
     input_course(courses)
-    mark(students, courses)
     mark(students, courses)
 
     GPA(students)
@@ -47,6 +54,10 @@ def main():
     print(students)
     # List courses' information
     print(courses)
+    sorted_students = sort_GPA(students)
+    print("///Soring GPA in Descending order.///")
+    for student in sorted_students:
+        print(f"Name: {student.get_name()} | GPA: {student.get_GPA()}")
 
 # Starting Point
 if __name__ == '__main__':
