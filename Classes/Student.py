@@ -1,5 +1,6 @@
 import math
 import numpy
+import curses
 
 class Student:
     def __init__(self, id, name, dob):
@@ -18,12 +19,16 @@ class Student:
     def get_GPA(self):
         return self.__gpa
     
-    def enter_mark(self, course_id):
-        mark = float(input(f"Enter the mark for student ID {self.__id}: "))
+    def enter_mark(self, stdscr, course_id):
+        curses.echo()
+        stdscr.clear()
+        stdscr.addstr(0, 0, f"Enter the mark for student ID {self.__id}: ")
+        mark = float(stdscr.getstr(1, 0).decode())
         mark = mark * 10
         mark = math.floor(mark)
         mark = mark / 10
         self.__mark[course_id] = numpy.array([mark])
+        curses.noecho()
 
     def cal_GPA(self):
         course_score = 0
