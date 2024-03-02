@@ -2,8 +2,8 @@ import curses
 import zipfile
 import pickle
 import os
-from input import input_student, input_course, mark
-from output import GPA, sort_GPA
+from input import *
+from output import *
 
 def save_data(filename, data):
     with open(filename, 'wb') as file:
