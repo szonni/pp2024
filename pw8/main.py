@@ -2,8 +2,10 @@ import curses
 import zipfile
 import pickle
 import os
+import threading
 from input import *
 from output import *
+
 
 def save_data(filename, data):
     with open(filename, 'wb') as file:
@@ -15,16 +17,23 @@ def load_data(filename):
 
 def main(stdscr):
     # Decompression
-    dat_file = "pw6/Info.dat"
-    output = "pw6"
+    dat_file = "pw8/Info.dat"
+    output = "pw8"
     if os.path.exists(dat_file):
         with zipfile.ZipFile(dat_file, "r") as zip_ref:
             zip_ref.extractall(output)
 
+    thread_load1 = threading.Thread(target=load_data("pw8/students.pickle"))
+    thread_load2 = threading.Thread(target=load_data("pw8/courses.pickle"))
+    
+    students = thread_load1.start() or []
+    courses = thread_load2.start() or []
+
+    thread_load1.join()
+    thread_load2.join()
+    
     # Main
     curses.curs_set(1)
-    courses = load_data("pw6/courses.pickle") or []
-    students = load_data("pw6/students.pickle") or []
     
     input_student(stdscr, students)
     input_course(stdscr, courses)
@@ -49,11 +58,17 @@ def main(stdscr):
     
     stdscr.getch()
 
-    save_data("pw6/students.pickle", students)
-    save_data("pw6/courses.pickle", courses)
+    save_thread1 = threading.Thread(target=save_data("pw8/students.pickle", students))
+    save_thread2 = threading.Thread(target=save_data("pw8/courses.pickle", courses))
+    
+    save_thread1.start()
+    save_thread2.start()
+    
+    save_thread1.join()
+    save_thread2.join()
 
-    files = ["pw6/students.pickle", "pw6/courses.pickle"]
-    output_data = "pw6/Info.dat"
+    files = ["pw8/students.pickle", "pw8/courses.pickle"]
+    output_data = "pw8/Info.dat"
 
     with zipfile.ZipFile(output_data, "w") as zip:
         for file in files:
