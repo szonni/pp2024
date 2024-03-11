@@ -1,5 +1,5 @@
-from domains import Student
-from domains import Course
+from domains.Student import Student
+from domains.Course import Course
 import tkinter
 
 def input_student(root, students, refresh):
@@ -11,13 +11,13 @@ def input_student(root, students, refresh):
     
     num_input = tkinter.Entry(root)
     num_input.pack(anchor="nw")
+    iterator = 0
     
 
-    def add_student():
-        i = 0
-        num = int(num_input.get())
-        if i < num:
-            id_label = tkinter.Label(root, text=f"Student number {i+1} | ID: ")
+    def add_student(num):
+        nonlocal iterator
+        if iterator < num:
+            id_label = tkinter.Label(root, text=f"Student number {iterator+1} | ID: ")
             id_label.pack()
             id_input = tkinter.Entry(root)
             id_input.pack()
@@ -33,15 +33,19 @@ def input_student(root, students, refresh):
             dob_input.pack()
 
             def append_student():
-                students.append(Student(id_input.get(), name_input.get(), dob_input.get()))
-                i+=1
+                nonlocal iterator
+                s_id = id_input.get()
+                s_name = name_input.get()
+                s_dob = dob_input.get()
+                students.append(Student(s_id, s_name, s_dob))
+                iterator += 1
                 refresh(root)
-                add_student()
+                add_student(num)
 
             add_butt = tkinter.Button(root, text="Append", command=append_student)
             add_butt.pack()
 
-    butt = tkinter.Button(root, text="Add Students", command=add_student)
+    butt = tkinter.Button(root, text="Add Students", command=lambda: add_student(int(num_input.get())))
     butt.pack()
 
 def input_course(root, courses, refresh):

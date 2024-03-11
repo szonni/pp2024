@@ -1,5 +1,5 @@
-from domains import Student
-from domains import Course
+from domains.Student import Student
+from domains.Course import Course
 import curses
 
 def input_student(stdscr, students):
