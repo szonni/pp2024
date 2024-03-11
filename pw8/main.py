@@ -12,8 +12,11 @@ def save_data(filename, data):
         pickle.dump(data, file)
 
 def load_data(filename):
-    with open(filename, 'rb') as file:
-        return pickle.load(file)
+    if not os.path.exists(filename):
+        return None
+    else:
+        with open(filename, 'rb') as file:
+            return pickle.load(file)
 
 def main(stdscr):
     # Decompression
@@ -23,15 +26,9 @@ def main(stdscr):
         with zipfile.ZipFile(dat_file, "r") as zip_ref:
             zip_ref.extractall(output)
 
-    thread_load1 = threading.Thread(target=load_data("pw8/students.pickle"))
-    thread_load2 = threading.Thread(target=load_data("pw8/courses.pickle"))
-    
-    students = thread_load1.start() or []
-    courses = thread_load2.start() or []
+    students = load_data("pw8/students.pickle") or []
+    courses = load_data("pw8/courses.pickle") or []
 
-    thread_load1.join()
-    thread_load2.join()
-    
     # Main
     curses.curs_set(1)
     

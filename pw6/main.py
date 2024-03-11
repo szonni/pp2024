@@ -10,8 +10,11 @@ def save_data(filename, data):
         pickle.dump(data, file)
 
 def load_data(filename):
-    with open(filename, 'rb') as file:
-        return pickle.load(file)
+    if not os.path.exists(filename):
+        return None
+    else:
+        with open(filename, 'rb') as file:
+            return pickle.load(file)
 
 def main(stdscr):
     # Decompression
