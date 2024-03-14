@@ -25,11 +25,14 @@ class Student:
         mark_input = tkinter.Entry(root)
         mark_input.pack()
 
-        mark = float(mark_input.get())
-        mark = mark * 10
-        mark = math.floor(mark)
-        mark = mark / 10
-        self.__mark[course_id] = numpy.array([mark])
+        def add_mark(self):
+            mark = float(mark_input.get())
+            mark = mark * 10
+            mark = math.floor(mark)
+            mark = mark / 10
+            self.__mark[course_id] = numpy.array([mark])
+        comfirm = tkinter.Button(root, text="Confirm", command=add_mark)
+        comfirm.pack()
 
     def cal_GPA(self):
         course_score = 0
@@ -42,4 +45,4 @@ class Student:
     
 
     def __repr__(self):
-        return f"ID: {self.__id}, Name: {self.__name}, DOB: {self.__dob}, Marks: {self.__mark}, {self.__gpa}"'\n'
+        return f"ID: {self.__id}, Name: {self.__name}, DOB: {self.__dob}, Marks: {self.__mark}, {self.__gpa}"
