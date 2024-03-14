@@ -19,19 +19,20 @@ class Student:
     def get_GPA(self):
         return self.__gpa
     
-    def enter_mark(self, root, course_id):
+    def enter_mark(self, root, course_id, iterator):
         mark_label = tkinter.Label(root, text=f"Enter the mark for student ID {self.__id}: ")
         mark_label.pack()
         mark_input = tkinter.Entry(root)
         mark_input.pack()
 
-        def add_mark(self):
+        def add_mark(iterator):
             mark = float(mark_input.get())
             mark = mark * 10
             mark = math.floor(mark)
             mark = mark / 10
             self.__mark[course_id] = numpy.array([mark])
-        comfirm = tkinter.Button(root, text="Confirm", command=add_mark)
+            iterator += 1
+        comfirm = tkinter.Button(root, text="Confirm", command=lambda: add_mark(iterator))
         comfirm.pack()
 
     def cal_GPA(self):
@@ -45,4 +46,4 @@ class Student:
     
 
     def __repr__(self):
-        return f"ID: {self.__id}, Name: {self.__name}, DOB: {self.__dob}, Marks: {self.__mark}, {self.__gpa}"
+        return f"ID: {self.__id}, Name: {self.__name}, DOB: {self.__dob}, Marks: {self.__mark}, {self.__gpa};"'\n'

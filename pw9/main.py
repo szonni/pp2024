@@ -3,7 +3,7 @@ import zipfile
 import pickle
 import os
 import threading
-from input import input_student, input_course
+from input import *
 from output import *
 
 def refresh(root):
@@ -30,8 +30,12 @@ def main(root, students, courses):
     butt2 = tkinter.Button(root, text="Course", command=lambda: [refresh(root), input_course(root, students, courses, refresh, main)])
     butt2.pack()
 
-    #butt3 = tkinter.Button(root, text="Mark", command=lambda: [refresh(root), mark(root, students, courses, refresh)])
-    #butt3.pack()
+    if len(students) == 0 or len(courses) == 0:
+        butt3 = tkinter.Button(root, text="Mark", state="disabled")
+        butt3.pack()
+    else:
+        butt3 = tkinter.Button(root, text="Mark", command=lambda: [refresh(root), mark(root, students, courses, refresh, main)])
+        butt3.pack()
 
     #GPA(root, students, refresh)
     # List students' infomation
@@ -43,9 +47,9 @@ def main(root, students, courses):
 
     sorted_students = sort_GPA(students)
     
-    for student in sorted_students:
-        sorted_students_info = tkinter.Label(root, text=f"Name: {student.get_name()} | GPA: {student.get_GPA()}", font=("Arial", 18))
-        sorted_students_info.pack(padx=30, pady=30)
+    for i, student in enumerate(sorted_students, start = 1):
+        sorted_students_info = tkinter.Label(root, text=f"{i}. Name: {student.get_name()} | GPA: {student.get_GPA()}", font=("Arial", 18))
+        sorted_students_info.pack(padx=5, pady=5)
     
     root.mainloop()
 
