@@ -1,9 +1,8 @@
 from domains.Student import Student
 from domains.Course import Course
 import tkinter
-from main import main
 
-def input_student(root, students, courses, refresh):
+def input_student(root, students, courses, refresh, main):
     func_label = tkinter.Label(root, text="STUDENTS INPUT", font=("Helvetica",20))
     func_label.pack()
     
@@ -52,7 +51,7 @@ def input_student(root, students, courses, refresh):
     butt = tkinter.Button(root, text="Add Students", command=lambda: add_student(int(num_input.get())))
     butt.pack()
 
-def input_course(root, courses, students, refresh):
+def input_course(root, students, courses, refresh, main):
     func_label = tkinter.Label(root, text="COURSES INPUT", font=("Helvetica",20))
     func_label.pack()
     
@@ -99,20 +98,23 @@ def mark(root, students, courses, refresh):
     func_label.pack()
 
     courseid_label = tkinter.Label(root, text="Enter course ID: ")
-    courseid_label.pack()
+    courseid_label.pack(anchor="nw")
     courseid_input = tkinter.Entry(root)
-    courseid_input.pack()
+    courseid_input.pack(anchor="nw")
     
-    while True:    
-        if not any(courseid_input.get() == course.get_id() for course in courses):
-            label1 = tkinter.Label(root, text="Invalid course ID.")
-            label1.pack()
+    def input_mark():
+        while True:    
+            if not any(courseid_input.get() == course.get_id() for course in courses):
+                label1 = tkinter.Label(root, text="Invalid course ID.")
+                label1.pack()
 
-            label2 = tkinter.Label(root, text="Please enter the correct course's ID: ")
-            label2.pack()
-            courseid_input = tkinter.Entry(root)
-            courseid_input.pack()
-            continue
-        for student in students:
-            student.enter_mark(root, courseid_input.get())
-        break
+                label2 = tkinter.Label(root, text="Please enter the correct course's ID: ")
+                label2.pack()
+                courseid_input = tkinter.Entry(root)
+                courseid_input.pack()
+                continue
+            for student in students:
+                student.enter_mark(root, courseid_input.get())
+            break
+    butt = tkinter.Button(root, text="Continue", command=input_mark)
+    butt.pack()

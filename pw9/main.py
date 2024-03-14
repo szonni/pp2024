@@ -3,7 +3,7 @@ import zipfile
 import pickle
 import os
 import threading
-from input import *
+from input import input_student, input_course
 from output import *
 
 def refresh(root):
@@ -24,14 +24,14 @@ def load_data(filename):
 def main(root, students, courses):
     # Main    
 
-    butt1 = tkinter.Button(root, text="Student", command=lambda: [refresh(root), input_student(root, students, courses, refresh)])
+    butt1 = tkinter.Button(root, text="Student", command=lambda: [refresh(root), input_student(root, students, courses, refresh, main)])
     butt1.pack()
 
-    butt2 = tkinter.Button(root, text="Course", command=lambda: [refresh(root), input_course(root, courses, students, refresh)])
+    butt2 = tkinter.Button(root, text="Course", command=lambda: [refresh(root), input_course(root, students, courses, refresh, main)])
     butt2.pack()
 
-    butt3 = tkinter.Button(root, text="Mark", command=lambda: [refresh(root), mark(root, students, courses, refresh)])
-    butt3.pack()
+    #butt3 = tkinter.Button(root, text="Mark", command=lambda: [refresh(root), mark(root, students, courses, refresh)])
+    #butt3.pack()
 
     #GPA(root, students, refresh)
     # List students' infomation
@@ -47,6 +47,7 @@ def main(root, students, courses):
         sorted_students_info = tkinter.Label(root, text=f"Name: {student.get_name()} | GPA: {student.get_GPA()}", font=("Arial", 18))
         sorted_students_info.pack(padx=30, pady=30)
     
+    root.mainloop()
 
     save_thread1 = threading.Thread(target=save_data, args=("pw9/students.pickle", students))
     save_thread2 = threading.Thread(target=save_data, args=("pw9/courses.pickle", courses))
@@ -83,4 +84,3 @@ if __name__ == '__main__':
     root.title("Student Management System")
     
     main(root, students, courses)
-    root.mainloop()
