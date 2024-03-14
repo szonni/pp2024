@@ -37,19 +37,26 @@ def main(root, students, courses):
         butt3 = tkinter.Button(root, text="Mark", command=lambda: [refresh(root), mark(root, students, courses, refresh, main)])
         butt3.pack()
 
-    #GPA(root, students, refresh)
+    #GPA(students)
+    
     # List students' infomation
-    students_info = tkinter.Label(root, text=str(students), font=("Arial", 18))
-    students_info.pack(padx=30, pady=30)
+    tkinter.Label(root, text="Students' Info", font=("Helvetica", 18)).pack()
+    for i, student in enumerate(students, start = 1):
+        tkinter.Label(root, text=f"{i}. ID: {student.get_id()} | Name: {student.get_name()} | DoB: {student.get_dob()} | Marks(course , mark): {student.get_marks()}", font=("Arial", 14)).pack(padx=5, pady=5)
     # List courses' information
-    courses_info = tkinter.Label(root, text=str(courses), font=("Arial", 18))
-    courses_info.pack(padx=30, pady=30)
+    tkinter.Label(root, text="Courses' Info", font=("Helvetica", 18)).pack()
+    for i, course in enumerate(courses, start = 1):
+        tkinter.Label(root, text=f"{i}. ID: {course.get_id()} | Name: {course.get_name()}", font=("Arial", 14)).pack(padx=5, pady=5)
 
     sorted_students = sort_GPA(students)
+    tkinter.Label(root, text="Sorted GPA", font=("Helvetica", 18)).pack(pady=10)
     
     for i, student in enumerate(sorted_students, start = 1):
-        sorted_students_info = tkinter.Label(root, text=f"{i}. Name: {student.get_name()} | GPA: {student.get_GPA()}", font=("Arial", 18))
+        sorted_students_info = tkinter.Label(root, text=f"{i}. Name: {student.get_name()} | GPA: {student.get_GPA()}", font=("Arial", 14))
         sorted_students_info.pack(padx=5, pady=5)
+
+    # Exit Button
+    tkinter.Button(root, text="Exit", command=root.destroy).pack(pady=15)
     
     root.mainloop()
 

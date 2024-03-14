@@ -93,7 +93,7 @@ def input_course(root, students, courses, refresh, main):
     butt = tkinter.Button(root, text="Add Courses", command=lambda: add_course(int(num_input.get())))
     butt.pack()
 
-def mark(root, students, courses, refresh,main):
+def mark(root, students, courses, refresh, main):
     func_label = tkinter.Label(root, text="MARKS INPUT", font=("Helvetica", 20))
     func_label.pack()
 
@@ -101,10 +101,10 @@ def mark(root, students, courses, refresh,main):
     courseid_label.pack(anchor="nw")
     courseid_input = tkinter.Entry(root)
     courseid_input.pack(anchor="nw")
-    iterator = 0
+    index = 0
     
     def input_mark():
-        nonlocal iterator
+        nonlocal index
         nonlocal courseid_input
         c_id = courseid_input.get()
         if not any(c_id == course.get_id() for course in courses):
@@ -115,10 +115,12 @@ def mark(root, students, courses, refresh,main):
             courseid_input = tkinter.Entry(root)
             courseid_input.pack()
         else:
-            for student in students:
-                student.enter_mark(root, c_id, refresh, iterator)
-        if iterator >= len(students):
-            refresh(root)
-            main(root, students, courses)
+            if index >= len(students):
+                refresh(root)
+                main(root, students, courses)
+            else:
+                students[index].enter_mark(root, c_id)
+                index += 1
+
     butt = tkinter.Button(root, text="Continue", command=input_mark)
     butt.pack()

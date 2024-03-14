@@ -3,6 +3,9 @@ class Course:
         self.__name = name
         self.__id = id
     
+    def get_name(self):
+        return self.__name
+
     def get_id(self):
         return self.__id
     
