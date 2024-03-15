@@ -37,7 +37,7 @@ def main(root, students, courses):
         butt3 = tkinter.Button(root, text="Mark", command=lambda: [refresh(root), mark(root, students, courses, refresh, main)])
         butt3.pack()
 
-    #GPA(students)
+    GPA(students)
     
     # List students' infomation
     tkinter.Label(root, text="Students' Info", font=("Helvetica", 18)).pack()
